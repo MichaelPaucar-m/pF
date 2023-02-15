@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %} 
+{%block title%} Services {%endblock%} 
+{%block content%}
+{%load static%}  
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-dark bg-img p-5 mb-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-uppercase text-white">Services</h1>
+                <a href="{%url 'home'%}">Home</a>
+                <i class="far fa-square text-primary px-2"></i>
+                <a href="{%url 'services'%}">Services</a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+<!-- Service Start -->  
+
+    {%for receta in services%}
+    <section class="page-section cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="cta-innerv text-center rounded">
+              <h2 class="section-heading mb-5">
+                <span class="section-heading-upper">{{receta.published|date:"SHORT_DATE_FORMAT"}}</span>
+                <span class="section-heading-lower">{{receta.title}}</span>
+              </h2>
+              <p class="mb-0">
+                <img class="mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{{receta.image.url}}" alt="">
+              </p>
+              <p class="mb-0 mbt">
+                {{receta.content}}
+              </p>
+              <p class="mb-0 mbt">
+                <span class="section-heading-under">Publicado por <em><b>{{receta.author}}</b></em> en 
+                <!--<em><a href="#" class="link">General</a>, <a href="#" class="link">Ofertas</a></em>
+                --> 
+                {%for category in receta.categories.all%}
+                <!--para que no me salga la coma en todos los objetos-->
+                <em><a href="{%url 'category' category.id %}"> {{category.name}} </a><em>{%if not forloop.last %},{%endif%}
+                {%endfor%}
+                 </span>
+              
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+{%endfor%}
+    <!-- Service Start --> 
+
+{%endblock%}
